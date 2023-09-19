@@ -1,3 +1,7 @@
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:chat_application/controller/profile_pic_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +14,8 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
+  File? imgpath;
+  bool isImageloading = false;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -33,6 +39,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
 
+            SizedBox(
+              height: 40.0,
+            ),
             // profile avatar
             Stack(
               children: [
@@ -43,12 +52,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   width: 160.0,
                 ),
                 Container(
-                  height: 160,
-                  width: 160,
-                  child: Image.asset(
-                    'assets/images/user.png',
-                    fit: BoxFit.cover,
+                  height: 160.0,
+                  width: 160.0,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    shape: BoxShape.circle, // Set the shape to circle
                   ),
+                  child: isImageloading == false
+                      ? imgpath == null
+                          ? Image.asset(
+                              'assets/images/user.png',
+                              fit: BoxFit.cover,
+                            )
+                          : ClipOval(
+                              // Use ClipOval to clip the image to a circle
+                              child: Image.file(
+                                imgpath!,
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                      : Center(
+                          child: CircularProgressIndicator(),
+                        ),
                 ),
                 Positioned(
                   bottom: -10,
@@ -60,19 +85,70 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     //     // color: Colors.white,
                     //     borderRadius: BorderRadius.circular(100.0)),
                     child: IconButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        setState(() {
+                          isImageloading = true;
+                        });
                         print('pressed');
+                        final newImgPath = await Profile_Pic.pickFile();
+                        setState(() {
+                          imgpath = File(newImgPath!.path);
+                          isImageloading = false;
+                        });
                       },
                       icon: Icon(
-                        Icons.add_a_photo,
-                        color: Colors.black,
+                        Icons.edit,
+                        color: Colors.white,
                         size: 28.0,
                       ),
                     ),
                   ),
-                )
+                ),
               ],
-            )
+            ),
+
+            // Nickname input field
+            Container(
+              margin: const EdgeInsets.only(top: 50.0, left: 20.0, right: 40.0),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Nick Name',
+                  labelStyle: TextStyle(color: Colors.grey.shade300),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Colors
+                            .grey.shade300), // Change the border color here
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Colors
+                            .grey.shade100), // Change the border color here
+                  ),
+                ),
+              ),
+            ),
+
+            //
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.42,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 40.0,
+              padding: const EdgeInsets.symmetric(horizontal: 150.0),
+              // margin: const EdgeInsets.only(top: 75.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromARGB(255, 122, 123, 152),
+                  shape: const StadiumBorder(),
+                ),
+                onPressed: () {},
+                child: const Text('Next',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                    )),
+              ),
+            ),
           ],
         ),
       ),
