@@ -91,8 +91,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         });
                         print('pressed');
                         final newImgPath = await Profile_Pic.pickFile();
+                        if (newImgPath != null) {
+                          setState(() {
+                            imgpath = File(newImgPath.path);
+                            isImageloading = false;
+                          });
+                        } else {}
                         setState(() {
-                          imgpath = File(newImgPath!.path);
                           isImageloading = false;
                         });
                       },

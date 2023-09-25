@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Login_Screen extends StatefulWidget {
-  const Login_Screen({super.key});
+class SignUp_Screen extends StatefulWidget {
+  const SignUp_Screen({super.key});
 
   @override
-  State<Login_Screen> createState() => _Login_ScreenState();
+  State<SignUp_Screen> createState() => _SignUp_ScreenState();
 }
 
-class _Login_ScreenState extends State<Login_Screen> {
+class _SignUp_ScreenState extends State<SignUp_Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +35,26 @@ class _Login_ScreenState extends State<Login_Screen> {
                   margin: const EdgeInsets.only(top: 50.0),
                   child: TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'EMAIL ADDRESS',
+                      labelText: 'Name',
+                      labelStyle: TextStyle(color: Colors.grey.shade300),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Colors
+                                .grey.shade300), // Change the border color here
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Colors
+                                .grey.shade100), // Change the border color here
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 30.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Email Address',
                       labelStyle: TextStyle(color: Colors.grey.shade300),
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
@@ -148,7 +167,7 @@ class _Login_ScreenState extends State<Login_Screen> {
                     ])),
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.034),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
