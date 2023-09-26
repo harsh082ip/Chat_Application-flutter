@@ -1,3 +1,4 @@
+import 'package:chat_application/controller/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUp_Screen extends StatefulWidget {
@@ -8,6 +9,9 @@ class SignUp_Screen extends StatefulWidget {
 }
 
 class _SignUp_ScreenState extends State<SignUp_Screen> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +38,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                 Container(
                   margin: const EdgeInsets.only(top: 50.0),
                   child: TextFormField(
+                    controller: nameController,
                     decoration: InputDecoration(
                       labelText: 'Name',
                       labelStyle: TextStyle(color: Colors.grey.shade300),
@@ -53,6 +58,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                 Container(
                   margin: const EdgeInsets.only(top: 30.0),
                   child: TextFormField(
+                    controller: emailController,
                     decoration: InputDecoration(
                       labelText: 'Email Address',
                       labelStyle: TextStyle(color: Colors.grey.shade300),
@@ -72,6 +78,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                 Container(
                   margin: const EdgeInsets.only(top: 30.0),
                   child: TextFormField(
+                    controller: passwordController,
                     decoration: InputDecoration(
                       labelText: 'PASSWORD',
                       labelStyle: TextStyle(color: Colors.grey.shade300),
@@ -113,8 +120,11 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                       backgroundColor: Color.fromARGB(255, 122, 123, 152),
                       shape: const StadiumBorder(),
                     ),
-                    onPressed: () {},
-                    child: const Text('SIGN IN',
+                    onPressed: () {
+                      Auth.instance.Signup(nameController.text,
+                          emailController.text, passwordController.text);
+                    },
+                    child: const Text('SIGN UP',
                         style: TextStyle(
                           fontSize: 20.0,
                         )),
@@ -125,7 +135,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                 ),
                 const Center(
                   child: Text(
-                    " - - - OR LOGIN WITH - - - ",
+                    " - - - OR SIGNUP WITH - - - ",
                     style: TextStyle(color: Colors.white, fontSize: 18.0),
                   ),
                 ),
@@ -156,7 +166,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                     label: RichText(
                         text: const TextSpan(children: [
                       TextSpan(
-                          text: 'Sign in with',
+                          text: 'Sign Up with',
                           style: TextStyle(color: Colors.white, fontSize: 18)),
                       TextSpan(
                           text: ' Google',
@@ -172,13 +182,13 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      'Don\'t have an account ? ',
+                      'Already have an account ? ',
                       style: TextStyle(color: Colors.white, fontSize: 18.0),
                     ),
                     TextButton(
                         onPressed: () {},
                         child: Text(
-                          'Sign Up',
+                          'Sign in',
                           style: TextStyle(
                             color: Colors.grey.shade300,
                             fontSize: 18.0,

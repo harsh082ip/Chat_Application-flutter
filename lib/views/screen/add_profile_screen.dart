@@ -1,8 +1,11 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:chat_application/controller/profile_pic_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../controller/upload_profile_pic.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -15,6 +18,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   File? imgpath;
   bool isImageloading = false;
+  final TextEditingController nicknameController = TextEditingController();
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -115,6 +119,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Container(
               margin: const EdgeInsets.only(top: 50.0, left: 20.0, right: 40.0),
               child: TextFormField(
+                controller: nicknameController,
                 decoration: InputDecoration(
                   labelText: 'Nick Name',
                   labelStyle: TextStyle(color: Colors.grey.shade300),
@@ -146,7 +151,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   backgroundColor: Color.fromARGB(255, 122, 123, 152),
                   shape: const StadiumBorder(),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  log(imgpath!.path);
+                  Upload_Profile_Pic.uploadProfilePic(
+                      imgpath!.path, nicknameController.text);
+                },
                 child: const Text('Next',
                     style: TextStyle(
                       fontSize: 20.0,
