@@ -40,21 +40,24 @@ class Auth extends GetxController {
     }
   }
 
-  void login(String email, String password){
-  try{
-    if(email.isNotEmpty && password.isNotEmpty){
-      FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password)
-      .then((value) => Get.snackbar('Congratulation', "You have login successfully"));
-      Get.to(HomeScreen());
+  void login(String email, String password) async {
+    try {
+      if (email.isNotEmpty && password.isNotEmpty) {
+        await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password)
+            .then((value) {
+          if (FirebaseAuth.instance.currentUser!.uid != null) {
+            Get.snackbar('Congratulation', "You have login successfully");
+            Get.offAll(HomeScreen());
+          }
+        });
+      } else {
+        Get.snackbar(
+            'Incomplete details', 'Please fill all the required fields');
+      }
+    } catch (e) {
+      log(e.toString());
+      Get.offAll(Login_Screen());
     }
-    else{
-        Get.snackbar('Incomplete details', 'Please fill all the required fields');
-       }
-  }catch(e){
-    log(e.toString());
-     Get.offAll(Login_Screen());
   }
-   
-  
-}
 }
