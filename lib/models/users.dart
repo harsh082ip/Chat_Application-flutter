@@ -1,5 +1,10 @@
 
+import 'dart:developer';
+
+import 'package:chat_application/views/screen/auth/login_screen.dart';
+import 'package:chat_application/views/screen/auth/signup_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MyUser{
   String name;
@@ -25,3 +30,4 @@ class MyUser{
     return MyUser(name: snapshot['name'], email: snapshot['email'], uid: snapshot['uid']);
   }
 }
+

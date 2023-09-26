@@ -1,9 +1,14 @@
+import 'dart:developer';
+
 import 'package:chat_application/models/users.dart';
 import 'package:chat_application/views/screen/add_profile_screen.dart';
 import 'package:chat_application/views/screen/auth/signup_screen.dart';
+import 'package:chat_application/views/screen/home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+
+import '../views/screen/auth/login_screen.dart';
 
 class Auth extends GetxController {
   static Auth instance = Get.find();
@@ -34,4 +39,22 @@ class Auth extends GetxController {
       Get.offAll(SignUp_Screen());
     }
   }
+
+  void login(String email, String password){
+  try{
+    if(email.isNotEmpty && password.isNotEmpty){
+      FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password)
+      .then((value) => Get.snackbar('Congratulation', "You have login successfully"));
+      Get.to(HomeScreen());
+    }
+    else{
+        Get.snackbar('Incomplete details', 'Please fill all the required fields');
+       }
+  }catch(e){
+    log(e.toString());
+     Get.offAll(Login_Screen());
+  }
+   
+  
+}
 }

@@ -1,3 +1,4 @@
+import 'package:chat_application/controller/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Login_Screen extends StatefulWidget {
@@ -8,6 +9,9 @@ class Login_Screen extends StatefulWidget {
 }
 
 class _Login_ScreenState extends State<Login_Screen> {
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +38,7 @@ class _Login_ScreenState extends State<Login_Screen> {
                 Container(
                   margin: const EdgeInsets.only(top: 50.0),
                   child: TextFormField(
+                    controller: emailController,
                     decoration: InputDecoration(
                       labelText: 'EMAIL ADDRESS',
                       labelStyle: TextStyle(color: Colors.grey.shade300),
@@ -53,6 +58,7 @@ class _Login_ScreenState extends State<Login_Screen> {
                 Container(
                   margin: const EdgeInsets.only(top: 30.0),
                   child: TextFormField(
+                    controller: passwordController,
                     decoration: InputDecoration(
                       labelText: 'PASSWORD',
                       labelStyle: TextStyle(color: Colors.grey.shade300),
@@ -94,7 +100,9 @@ class _Login_ScreenState extends State<Login_Screen> {
                       backgroundColor: Color.fromARGB(255, 122, 123, 152),
                       shape: const StadiumBorder(),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Auth.instance.login(emailController.text, passwordController.text);
+                    },
                     child: const Text('SIGN IN',
                         style: TextStyle(
                           fontSize: 20.0,

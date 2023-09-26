@@ -3,7 +3,6 @@ import 'package:chat_application/views/screen/auth/login_screen.dart';
 import 'package:chat_application/views/screen/auth/signup_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get.dart';
 import 'controller/firebase_auth.dart';
 import 'firebase_options.dart';
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SignUp_Screen(),
+      home: Login_Screen(),
     );
   }
 }

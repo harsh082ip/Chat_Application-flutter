@@ -11,8 +11,9 @@ import 'package:get/get_core/src/get_main.dart';
 
 import '../models/user_pic.dart';
 
+
 class Upload_Profile_Pic {
-  static Future<String?> uploadProfilePic(
+  static void uploadProfilePic(
       String imgPath, String nickname) async {
     final file = File(imgPath);
     String filename = basename(file.path);
@@ -25,7 +26,6 @@ class Upload_Profile_Pic {
         final downloadURL = await storageRef.getDownloadURL();
         dwnURL = downloadURL;
         log('Profile uploaded to: $downloadURL');
-        return downloadURL;
       });
 
       User_Profile_Pic upp = User_Profile_Pic(
