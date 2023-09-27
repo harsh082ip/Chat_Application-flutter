@@ -1,6 +1,6 @@
 import 'package:chat_application/views/screen/add_profile_screen.dart';
 import 'package:chat_application/views/screen/auth/login_screen.dart';
-import 'package:chat_application/views/screen/auth/signup_screen.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

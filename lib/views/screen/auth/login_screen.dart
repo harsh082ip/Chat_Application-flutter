@@ -1,5 +1,7 @@
 import 'package:chat_application/controller/firebase_auth.dart';
+import 'package:chat_application/views/screen/auth/signup_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Login_Screen extends StatefulWidget {
   const Login_Screen({super.key});
@@ -9,9 +11,9 @@ class Login_Screen extends StatefulWidget {
 }
 
 class _Login_ScreenState extends State<Login_Screen> {
-
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool isLoggedin = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,13 +102,33 @@ class _Login_ScreenState extends State<Login_Screen> {
                       backgroundColor: Color.fromARGB(255, 122, 123, 152),
                       shape: const StadiumBorder(),
                     ),
-                    onPressed: () {
-                      Auth.instance.login(emailController.text, passwordController.text);
+                    child: isLoggedin == true
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Text('SIGN IN',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                            )),
+                    onPressed: () async {
+                      setState(() {
+                        isLoggedin = true;
+                      });
+
+                      // Perform the login operation asynchronously
+                      try {
+                        Auth.instance.login(
+                            emailController.text, passwordController.text);
+                        // If login is successful, navigate or perform other actions here
+                      } catch (error) {
+                        // Handle login failure here
+                        print("Login failed: $error");
+                      } finally {
+                        setState(() {
+                          isLoggedin = false;
+                        });
+                      }
                     },
-                    child: const Text('SIGN IN',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                        )),
                   ),
                 ),
                 const SizedBox(
@@ -165,7 +187,9 @@ class _Login_ScreenState extends State<Login_Screen> {
                       style: TextStyle(color: Colors.white, fontSize: 18.0),
                     ),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.offAll(const SignUp_Screen());
+                        },
                         child: Text(
                           'Sign Up',
                           style: TextStyle(

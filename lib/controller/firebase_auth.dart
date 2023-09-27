@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:chat_application/models/users.dart';
 import 'package:chat_application/views/screen/add_profile_screen.dart';
 import 'package:chat_application/views/screen/auth/signup_screen.dart';
+import 'package:chat_application/views/screen/auth/verify_email_address.dart';
 import 'package:chat_application/views/screen/home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,12 +30,13 @@ class Auth extends GetxController {
             .doc(userCredential.user!.uid)
             .set(myUser.toJson())
             .then((value) {
-          Get.offAll(ProfileScreen());
+          Get.offAll(Verify_Email());
         });
       } else {
         Get.snackbar('Error', 'Values can\'t be empty');
       }
     } catch (e) {
+      log(e.toString());
       Get.snackbar('Error', e.toString());
       Get.offAll(SignUp_Screen());
     }
@@ -58,6 +60,16 @@ class Auth extends GetxController {
     } catch (e) {
       log(e.toString());
       Get.offAll(Login_Screen());
+    }
+  }
+
+  // email verification
+  Future sendVerificationLink() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser!;
+      await user.sendEmailVerification();
+    } catch (e) {
+      Get.snackbar('Error', 'Some Error Occured');
     }
   }
 }
