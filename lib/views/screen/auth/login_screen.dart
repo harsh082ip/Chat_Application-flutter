@@ -1,4 +1,5 @@
 import 'package:chat_application/controller/firebase_auth.dart';
+import 'package:chat_application/views/reset_password.dart';
 import 'package:chat_application/views/screen/auth/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -83,13 +84,17 @@ class _Login_ScreenState extends State<Login_Screen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
+                    TextButton(
+                      onPressed: (){
+                        Get.to(ResetPassword());
+                      }, 
+                      child: Text(
                       'Forgot Password ?',
                       style: TextStyle(
                         color: Colors.grey.shade300,
                         fontSize: 16.0,
                       ),
-                    ),
+                    ),)
                   ],
                 ),
                 Container(

@@ -72,4 +72,14 @@ class Auth extends GetxController {
       Get.snackbar('Error', 'Some Error Occured');
     }
   }
+
+  // reset email
+  static void reset_password(String email) async{
+    try{
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email).then((value) => 
+    Get.snackbar("Email Sent",'Reset password email has been sent your entered email'));
+    }catch(e){
+      log(e.toString());
+    }
+}
 }
