@@ -36,7 +36,28 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          Container(
+            padding: EdgeInsets.only(
+              top: 10,
+            ),
+            width: MediaQuery.of(context).size.width,
+            height: 30,
+            color: Color.fromARGB(255, 26, 32, 44),
+            child: Padding(
+              padding: EdgeInsets.all(0), // Add this line to remove padding
+              child: Text(
+                'RECENTS',
+                style: TextStyle(
+                    color: Colors.white, fontSize: 18, letterSpacing: 3),
+              ),
+            ),
+          ),
+          Container(
+            height: 10,
+            color: Color.fromARGB(255, 26, 32, 44),
+          ),
           Container(
             height: MediaQuery.of(context).size.height * 0.25,
             width: MediaQuery.of(context).size.width,
