@@ -1,4 +1,5 @@
 import 'package:chat_application/controller/fetch_info_controller.dart';
+import 'package:chat_application/views/widget/custom_list_tile.dart';
 import 'package:chat_application/views/widget/recent_messages.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -111,7 +112,38 @@ class _HomeScreenState extends State<HomeScreen> {
                     topRight: Radius.circular(35.0))),
             height: MediaQuery.of(context).size.height * 0.6739,
             width: MediaQuery.of(context).size.width,
+            child: StreamBuilder<QuerySnapshot>(
+              stream: Fetch_Info.profilePicStream(),
+              builder: ((context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text(snapshot.error.toString()),
+                  );
+                }
+
+                if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                  return const Center(
+                    child: Text('No Items Found'),
+                  );
+                }
+
+                final List<DocumentSnapshot> documents = snapshot.data!.docs;
+                return ListView.builder(
+                  itemCount: documents.length,
+                  itemBuilder: (context, index){
+                    final item= documents[index].data() as Map<String, dynamic>;
+                    return CustomListTile(name: item['nickname'] as String, profileUrl: item['profileUrl']);
+                  });
+              }
+            )
           )
+          ),
         ],
       ),
     );
