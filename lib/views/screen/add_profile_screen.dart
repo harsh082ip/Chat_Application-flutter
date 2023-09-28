@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import '../../controller/upload_profile_pic.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  String? name;
+  ProfileScreen({super.key, required this.name});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -154,7 +155,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onPressed: () {
                   log(imgpath!.path);
                   Upload_Profile_Pic.uploadProfilePic(
-                      imgpath!.path, nicknameController.text);
+                      imgpath!.path, nicknameController.text, widget.name);
                 },
                 child: const Text('Next',
                     style: TextStyle(

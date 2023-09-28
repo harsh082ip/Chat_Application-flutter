@@ -1,4 +1,5 @@
 import 'package:chat_application/views/screen/auth/login_screen.dart';
+import 'package:chat_application/views/screen/auth/signup_screen.dart';
 import 'package:chat_application/views/screen/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(milliseconds: 1600), () {
       User? user = FirebaseAuth.instance.currentUser;
       user != null
-          ? Get.offAll(const HomeScreen())
+          ? Get.offAll(const SignUp_Screen())
           : Get.offAll(Login_Screen());
     });
   }

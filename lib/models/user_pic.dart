@@ -1,32 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class User_Profile_Pic {
+  String? name;
   String nickName;
   String profile_url;
   String uid;
 
   User_Profile_Pic({
-    required this.nickName,
     required this.profile_url,
     required this.uid,
+    required this.name,
+    required this.nickName,
   });
 
   // app --> firebase
 
   Map<String, dynamic> toJson() {
     return {
+      'name': name,
       'nickname': nickName,
       'profileUrl': profile_url,
+      'uid': uid,
     };
-  }
-
-  // firebase --> app
-
-  static User_Profile_Pic fromSnap(DocumentSnapshot snap) {
-    var snapshot = snap.data() as Map<String, dynamic>;
-    return User_Profile_Pic(
-        nickName: snapshot['nickname'],
-        profile_url: snapshot['profileUrl'],
-        uid: snapshot['uid']);
   }
 }

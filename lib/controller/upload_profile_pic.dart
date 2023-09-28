@@ -11,10 +11,9 @@ import 'package:get/get_core/src/get_main.dart';
 
 import '../models/user_pic.dart';
 
-
 class Upload_Profile_Pic {
   static void uploadProfilePic(
-      String imgPath, String nickname) async {
+      String imgPath, String nickname, String? name) async {
     final file = File(imgPath);
     String filename = basename(file.path);
     try {
@@ -29,6 +28,7 @@ class Upload_Profile_Pic {
       });
 
       User_Profile_Pic upp = User_Profile_Pic(
+          name: name,
           nickName: nickname,
           profile_url: dwnURL.toString(),
           uid: FirebaseAuth.instance.currentUser!.uid);

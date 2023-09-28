@@ -9,8 +9,8 @@ import 'package:get/get.dart';
 import '../../../controller/firebase_auth.dart';
 
 class Verify_Email extends StatefulWidget {
-  const Verify_Email({super.key});
-
+  Verify_Email({super.key, required this.name});
+  String? name;
   @override
   State<Verify_Email> createState() => _Verify_EmailState();
 }
@@ -31,7 +31,9 @@ class _Verify_EmailState extends State<Verify_Email> {
         (_) => checkEmailVerified(),
       );
     } else {
-      Get.off(ProfileScreen());
+      Get.off(ProfileScreen(
+        name: widget.name,
+      ));
     }
   }
 
@@ -56,7 +58,9 @@ class _Verify_EmailState extends State<Verify_Email> {
   @override
   Widget build(BuildContext context) {
     return isEmailVerified
-        ? ProfileScreen()
+        ? ProfileScreen(
+            name: widget.name,
+          )
         : Scaffold(
             body: Container(
               height: MediaQuery.of(context).size.height,

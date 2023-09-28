@@ -30,7 +30,9 @@ class Auth extends GetxController {
             .doc(userCredential.user!.uid)
             .set(myUser.toJson())
             .then((value) {
-          Get.offAll(Verify_Email());
+          Get.offAll(Verify_Email(
+            name: name,
+          ));
         });
       } else {
         Get.snackbar('Error', 'Values can\'t be empty');
@@ -74,12 +76,13 @@ class Auth extends GetxController {
   }
 
   // reset email
-  static void reset_password(String email) async{
-    try{
-    await FirebaseAuth.instance.sendPasswordResetEmail(email: email).then((value) => 
-    Get.snackbar("Email Sent",'Reset password email has been sent your entered email'));
-    }catch(e){
+  static void reset_password(String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email).then(
+          (value) => Get.snackbar("Email Sent",
+              'Reset password email has been sent your entered email'));
+    } catch (e) {
       log(e.toString());
     }
-}
+  }
 }
