@@ -14,10 +14,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 26, 32, 44),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 26, 32, 44),
+        backgroundColor: const Color.fromARGB(255, 26, 32, 44),
         elevation: 0,
-        title: Text(
+        title: const Text(
           'Messages',
           style: TextStyle(
             fontSize: 35.0,
@@ -28,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(
+            icon: const Icon(
               Icons.search,
               size: 35,
             ),
@@ -39,13 +40,13 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               top: 10,
             ),
             width: MediaQuery.of(context).size.width,
             height: 30,
-            color: Color.fromARGB(255, 26, 32, 44),
-            child: Padding(
+            color: const Color.fromARGB(255, 26, 32, 44),
+            child: const Padding(
               padding: EdgeInsets.all(0), // Add this line to remove padding
               child: Text(
                 'RECENTS',
@@ -56,17 +57,17 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Container(
             height: 10,
-            color: Color.fromARGB(255, 26, 32, 44),
+            color: const Color.fromARGB(255, 26, 32, 44),
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.25,
+            height: MediaQuery.of(context).size.height * 0.16,
             width: MediaQuery.of(context).size.width,
-            color: Color.fromARGB(255, 26, 32, 44),
+            color: const Color.fromARGB(255, 26, 32, 44),
             child: StreamBuilder<QuerySnapshot>(
               stream: Fetch_Info.profilePicStream(),
               builder: ((context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
@@ -78,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
 
                 if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return Center(
+                  return const Center(
                     child: Text('No Items Found'),
                   );
                 }
@@ -100,6 +101,15 @@ class _HomeScreenState extends State<HomeScreen> {
               }),
             ),
           ),
+          Container(
+            decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 41, 47, 63),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(35.0),
+                    topRight: Radius.circular(35.0))),
+            height: MediaQuery.of(context).size.height * 0.6739,
+            width: MediaQuery.of(context).size.width,
+          )
         ],
       ),
     );
