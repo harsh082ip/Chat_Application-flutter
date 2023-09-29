@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:chat_application/views/screen/chat_scree.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomListTile extends StatelessWidget {
   String name;
@@ -32,7 +34,7 @@ class CustomListTile extends StatelessWidget {
           backgroundImage: NetworkImage(profileUrl),
         ),
         onTap: () {
-          log('pressed');
+          Get.to(Chat_Screen(name: name, profileURL: profileUrl));
         },
       ),
     );

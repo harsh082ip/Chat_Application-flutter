@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(milliseconds: 1600), () {
       User? user = FirebaseAuth.instance.currentUser;
       user != null
-          ? Get.offAll(const HomeScreen())
+          ? Get.offAll(HomeScreen())
           : Get.offAll(SignUp_Screen());
     });
   }
