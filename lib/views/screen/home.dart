@@ -105,45 +105,46 @@ class _HomeScreenState extends State<HomeScreen> {
 
           // TODO: Write from here
           Container(
-            decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 41, 47, 63),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(35.0),
-                    topRight: Radius.circular(35.0))),
-            height: MediaQuery.of(context).size.height * 0.6739,
-            width: MediaQuery.of(context).size.width,
-            child: StreamBuilder<QuerySnapshot>(
-              stream: Fetch_Info.profilePicStream(),
-              builder: ((context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
+              decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 41, 47, 63),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(35.0),
+                      topRight: Radius.circular(35.0))),
+              height: MediaQuery.of(context).size.height * 0.6739,
+              width: MediaQuery.of(context).size.width,
+              child: StreamBuilder<QuerySnapshot>(
+                  stream: Fetch_Info.profilePicStream(),
+                  builder: ((context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
 
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Text(snapshot.error.toString()),
-                  );
-                }
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text(snapshot.error.toString()),
+                      );
+                    }
 
-                if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return const Center(
-                    child: Text('No Items Found'),
-                  );
-                }
+                    if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                      return const Center(
+                        child: Text('No Items Found'),
+                      );
+                    }
 
-                final List<DocumentSnapshot> documents = snapshot.data!.docs;
-                return ListView.builder(
-                  itemCount: documents.length,
-                  itemBuilder: (context, index){
-                    final item= documents[index].data() as Map<String, dynamic>;
-                    return CustomListTile(name: item['nickname'] as String, profileUrl: item['profileUrl']);
-                  });
-              }
-            )
-          )
-          ),
+                    final List<DocumentSnapshot> documents =
+                        snapshot.data!.docs;
+                    return ListView.builder(
+                        itemCount: documents.length,
+                        itemBuilder: (context, index) {
+                          final item =
+                              documents[index].data() as Map<String, dynamic>;
+                          return CustomListTile(
+                              name: item['name'] as String,
+                              profileUrl: item['profileUrl']);
+                        });
+                  }))),
         ],
       ),
     );
