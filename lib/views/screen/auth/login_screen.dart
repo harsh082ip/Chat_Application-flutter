@@ -85,16 +85,17 @@ class _Login_ScreenState extends State<Login_Screen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                      onPressed: (){
+                      onPressed: () {
                         Get.to(ResetPassword());
-                      }, 
+                      },
                       child: Text(
-                      'Forgot Password ?',
-                      style: TextStyle(
-                        color: Colors.grey.shade300,
-                        fontSize: 16.0,
+                        'Forgot Password ?',
+                        style: TextStyle(
+                          color: Colors.grey.shade300,
+                          fontSize: 16.0,
+                        ),
                       ),
-                    ),)
+                    )
                   ],
                 ),
                 Container(
@@ -183,7 +184,7 @@ class _Login_ScreenState extends State<Login_Screen> {
                     ])),
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+                const SizedBox(height: 30.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

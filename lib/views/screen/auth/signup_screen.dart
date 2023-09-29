@@ -1,5 +1,7 @@
 import 'package:chat_application/controller/firebase_auth.dart';
+import 'package:chat_application/views/screen/auth/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SignUp_Screen extends StatefulWidget {
   const SignUp_Screen({super.key});
@@ -177,7 +179,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                     ])),
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.034),
+                const SizedBox(height: 7.3),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -186,7 +188,9 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                       style: TextStyle(color: Colors.white, fontSize: 18.0),
                     ),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.offAll(Login_Screen());
+                        },
                         child: Text(
                           'Sign in',
                           style: TextStyle(

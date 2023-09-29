@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
       User? user = FirebaseAuth.instance.currentUser;
       user != null
           ? Get.offAll(const HomeScreen())
-          : Get.offAll(Login_Screen());
+          : Get.offAll(SignUp_Screen());
     });
   }
 

@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'controller/firebase_auth.dart';
 import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   _initializeFireBase();
   runApp(const MyApp());
