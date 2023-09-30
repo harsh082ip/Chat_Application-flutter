@@ -15,10 +15,16 @@ class ChatModel {
     final CollectionReference chatCollection =
         FirebaseFirestore.instance.collection('chats');
 
-    final chatSnapshot = await chatCollection
-        .where('participants', arrayContainsAny: [uid1, uid2]).get();
+    final chatSnapshot =
+        await chatCollection.where('participants', arrayContains: uid1).get();
 
-    if (chatSnapshot.docs.isNotEmpty) {
+    final filteredChats = chatSnapshot.docs
+        .where((doc) =>
+            (doc['participants'] as List).contains(uid1) &&
+            (doc['participants'] as List).contains(uid2))
+        .toList();
+
+    if (filteredChats.isNotEmpty) {
       final chatDoc = chatSnapshot.docs.first;
       await chatDoc.reference.update({
         'messages': FieldValue.arrayUnion([
