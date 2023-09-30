@@ -141,8 +141,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           final item =
                               documents[index].data() as Map<String, dynamic>;
                           return CustomListTile(
-                              name: item['name'] as String,
-                              profileUrl: item['profileUrl']);
+                            name: item['name'] as String,
+                            profileUrl: item['profileUrl'],
+                            uid: item['uid'],
+                          );
                         });
                   }))),
         ],

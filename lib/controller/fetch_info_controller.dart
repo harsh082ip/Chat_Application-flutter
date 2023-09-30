@@ -4,10 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 class Fetch_Info {
   // fetching snapshots of Profile_Pics collection
   static Stream<QuerySnapshot> profilePicStream() {
-    final user = FirebaseAuth.instance.currentUser;
-
+    String user = FirebaseAuth.instance.currentUser!.uid;
     if (user != null) {
-      return FirebaseFirestore.instance.collection('Profile_Pics').snapshots();
+      return FirebaseFirestore.instance
+          .collection('Profile_Pics')
+          .where('uid', isNotEqualTo: user)
+          .snapshots();
     } else {
       return Stream.empty();
     }

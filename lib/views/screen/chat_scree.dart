@@ -1,3 +1,5 @@
+import 'package:chat_application/models/chat_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_list/chat_list.dart';
 // rgba(27,32,45,255) background
@@ -8,7 +10,12 @@ import 'package:chat_list/chat_list.dart';
 class Chat_Screen extends StatefulWidget {
   String profileURL;
   String name;
-  Chat_Screen({super.key, required this.name, required this.profileURL});
+  String uid;
+  Chat_Screen(
+      {super.key,
+      required this.name,
+      required this.profileURL,
+      required this.uid});
 
   @override
   State<Chat_Screen> createState() => _Chat_ScreenState();
@@ -139,6 +146,7 @@ class _Chat_ScreenState extends State<Chat_Screen> {
         ownerType: OwnerType.sender,
         ownerName: "Higor"),
   ];
+  final TextEditingController text = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -171,6 +179,7 @@ class _Chat_ScreenState extends State<Chat_Screen> {
             Container(
               alignment: Alignment.bottomCenter,
               child: TextFormField(
+                controller: text,
                 decoration: InputDecoration(
                   focusColor: Colors.white,
                   hintText: 'Message',
@@ -192,7 +201,18 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                     borderSide: const BorderSide(color: Colors.white),
                   ),
                   suffixIcon: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (text != null) {
+                        debugPrint(FirebaseAuth.instance.currentUser!.uid);
+                        debugPrint(widget.uid);
+                        ChatModel chatModel = ChatModel(
+                            uid1: FirebaseAuth.instance.currentUser!.uid,
+                            uid2: widget.uid,
+                            text: text.text);
+
+                        chatModel.sendMessage();
+                      }
+                    },
                     icon: Icon(Icons.send),
                     color: Colors.grey,
                   ),

@@ -7,7 +7,12 @@ import 'package:get/get.dart';
 class CustomListTile extends StatelessWidget {
   String name;
   String profileUrl;
-  CustomListTile({super.key, required this.name, required this.profileUrl});
+  String uid;
+  CustomListTile(
+      {super.key,
+      required this.name,
+      required this.profileUrl,
+      required this.uid});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +39,11 @@ class CustomListTile extends StatelessWidget {
           backgroundImage: NetworkImage(profileUrl),
         ),
         onTap: () {
-          Get.to(Chat_Screen(name: name, profileURL: profileUrl));
+          Get.to(Chat_Screen(
+            name: name,
+            profileURL: profileUrl,
+            uid: uid,
+          ));
         },
       ),
     );
