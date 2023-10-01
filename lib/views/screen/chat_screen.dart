@@ -3,9 +3,11 @@ import 'dart:io';
 
 import 'package:chat_application/controller/chat_images.dart';
 import 'package:chat_application/controller/fetch_info_controller.dart';
+import 'package:chat_application/views/screen/image_full_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../controller/profile_pic_controller.dart';
 import '../../models/chat_model.dart';
@@ -25,7 +27,6 @@ class Chat_Screen extends StatefulWidget {
 }
 
 class _Chat_ScreenState extends State<Chat_Screen> {
-
   File? imgpath;
   final TextEditingController text = TextEditingController();
   @override
@@ -99,7 +100,7 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                         // Wrap the Align widgets in a Column
                         children: messageList.map((messageItem) {
                           final text = messageItem['text'];
-                          final imageOrText= messageItem['istextAnImage'];
+                          final imageOrText = messageItem['istextAnImage'];
                           final sender_uid = messageItem['sender_uid'];
                           print('Message Text: $text');
                           print('Sender UID: $sender_uid');
@@ -133,19 +134,29 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                                           : Color.fromARGB(255, 55, 62, 78),
                                       borderRadius: BorderRadius.circular(16.0),
                                     ),
-                                    child:imageOrText?Container(
-                                      margin: EdgeInsets.all(0.0),
-                                      padding: EdgeInsets.all(0.0),
-                                      child: Image.network(text,
-                                      height: 250.0,
-                                      width: 250.0,
-                                      fit: BoxFit.fill,),
-                                    ):
-                                    Text(
-                                      text,
-                                      style: const TextStyle(
-                                          color: Colors.white, fontSize: 20.0),
-                                    ),
+                                    child: imageOrText
+                                        ? Container(
+                                            margin: EdgeInsets.all(0.0),
+                                            padding: EdgeInsets.all(0.0),
+                                            child: InkWell(
+                                              onTap: () {
+                                                Get.to(ImageFullScreen(
+                                                    imgPath: text));
+                                              },
+                                              child: Image.network(
+                                                text,
+                                                height: 250.0,
+                                                width: 250.0,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            ),
+                                          )
+                                        : SelectableText(
+                                            text,
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20.0),
+                                          ),
                                   ),
                                 ],
                               ),
@@ -175,7 +186,7 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                   focusColor: Colors.black,
                   fillColor: Color.fromARGB(255, 55, 62, 78),
                   filled: true,
-                  hintText: imgpath!=null?"Image selected" : "Message",
+                  hintText: imgpath != null ? "Image selected" : "Message",
                   hintStyle: const TextStyle(color: Colors.black),
                   enabledBorder: OutlineInputBorder(
                     borderSide: const BorderSide(
@@ -190,21 +201,20 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                     borderRadius: BorderRadius.circular(23.0),
                   ),
                   prefixIcon: IconButton(
-                    onPressed: () async{
+                    onPressed: () async {
                       final newImgPath = await Profile_Pic.pickFile();
-                        if (newImgPath != null) {
-                          setState(() {
-                            imgpath = File(newImgPath.path);
-                            
-                          });
-                        } 
+                      if (newImgPath != null) {
+                        setState(() {
+                          imgpath = File(newImgPath.path);
+                        });
+                      }
                     },
                     icon: Icon(Icons.upload_file),
                     color: Colors.grey,
                   ),
                   suffixIcon: IconButton(
-                    onPressed: () async{
-                      if (text.text !="") {
+                    onPressed: () async {
+                      if (text.text != "") {
                         debugPrint(FirebaseAuth.instance.currentUser!.uid);
                         debugPrint(widget.uid);
                         ChatModel chatModel = ChatModel(
@@ -214,23 +224,25 @@ class _Chat_ScreenState extends State<Chat_Screen> {
 
                         chatModel.sendMessage(false);
                       }
-                      
-                       if (imgpath!=null) {
-                         log(imgpath.toString());
-                      String? downurl= await Upload_ChatImages.uploadChatImages(imgpath!.path);
 
-                        if(downurl!=null){
+                      if (imgpath != null) {
+                        log(imgpath.toString());
+                        String? downurl =
+                            await Upload_ChatImages.uploadChatImages(
+                                imgpath!.path);
+
+                        if (downurl != null) {
                           ChatModel chatModel = ChatModel(
-                            uid1: FirebaseAuth.instance.currentUser!.uid,
-                            uid2: widget.uid,
-                            text: downurl.toString());
-                        chatModel.sendMessage(true);
-                        setState(() {
-                          imgpath=null;
-                        });
+                              uid1: FirebaseAuth.instance.currentUser!.uid,
+                              uid2: widget.uid,
+                              text: downurl.toString());
+                          chatModel.sendMessage(true);
+                          setState(() {
+                            imgpath = null;
+                          });
                         }
                       }
-                      
+
                       text.clear();
                     },
                     icon: Icon(Icons.send),

@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:chat_application/views/screen/chat_scree.dart';
+import 'package:chat_application/views/screen/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
