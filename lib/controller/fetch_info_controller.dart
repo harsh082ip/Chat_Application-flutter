@@ -14,4 +14,12 @@ class Fetch_Info {
       return Stream.empty();
     }
   }
+
+  // fetching chats snaps
+  static Stream<QuerySnapshot> fetchChats(String uid1) {
+    return FirebaseFirestore.instance
+        .collection('chats')
+        .where('participants', arrayContains: uid1)
+        .snapshots();
+  }
 }

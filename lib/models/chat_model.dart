@@ -25,7 +25,7 @@ class ChatModel {
         .toList();
 
     if (filteredChats.isNotEmpty) {
-      final chatDoc = chatSnapshot.docs.first;
+      final chatDoc = filteredChats.first;
       await chatDoc.reference.update({
         'messages': FieldValue.arrayUnion([
           {
