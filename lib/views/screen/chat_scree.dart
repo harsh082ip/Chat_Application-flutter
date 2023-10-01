@@ -21,8 +21,6 @@ class Chat_Screen extends StatefulWidget {
   State<Chat_Screen> createState() => _Chat_ScreenState();
 }
 
-
-
 class _Chat_ScreenState extends State<Chat_Screen> {
   final TextEditingController text = TextEditingController();
   @override
@@ -34,11 +32,18 @@ class _Chat_ScreenState extends State<Chat_Screen> {
         elevation: 0,
         title: Row(
           children: [
-             CircleAvatar(
-          backgroundImage: NetworkImage(widget.profileURL), ),
-          SizedBox(width: 25.0,),
-            Text(widget.name, style: TextStyle(fontSize: 25.0),),
-        ],),
+            CircleAvatar(
+              backgroundImage: NetworkImage(widget.profileURL),
+            ),
+            SizedBox(
+              width: 25.0,
+            ),
+            Text(
+              widget.name,
+              style: TextStyle(fontSize: 25.0),
+            ),
+          ],
+        ),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -80,7 +85,6 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                   return ListView.builder(
                     reverse: true,
                     itemCount: messages.length,
-                    
                     itemBuilder: (context, index) {
                       final message =
                           messages[index].data() as Map<String, dynamic>;
@@ -103,28 +107,35 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                                   .centerLeft; // Use Alignment.centerLeft for messages from other senders
                           print('Alignment: $alignment');
 
-                          return Container(  
+                          return Container(
                             alignment: alignment,
                             width: MediaQuery.of(context).size.width,
                             child: Flexible(
-                               child: Wrap( // Use Wrap to allow content to wrap
-                                  crossAxisAlignment: WrapCrossAlignment.start, // Align children to the start
-                                  children: [
-                                            Container(
-                                              padding: EdgeInsets.all(7.0),
-                                              margin: EdgeInsets.all(8.0),
-                                              decoration: BoxDecoration(
-                                              color: sender_uid == FirebaseAuth.instance.currentUser!.uid ? Color.fromARGB(255, 122, 129, 148): Color.fromARGB(255, 55, 62, 78),
-                                              borderRadius: BorderRadius.circular(16.0),
-                                          ),
-                                        child: Text(
-                                       text,
-                                          style: const TextStyle(color: Colors.white, fontSize: 20.0),
-                                         ),
-                                       ),
-                                    ],
-                                ),
-                             ),
+                              child: Wrap(
+                                // Use Wrap to allow content to wrap
+                                crossAxisAlignment: WrapCrossAlignment
+                                    .start, // Align children to the start
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(7.0),
+                                    margin: EdgeInsets.all(8.0),
+                                    decoration: BoxDecoration(
+                                      color: sender_uid ==
+                                              FirebaseAuth
+                                                  .instance.currentUser!.uid
+                                          ? Color.fromARGB(255, 122, 129, 148)
+                                          : Color.fromARGB(255, 55, 62, 78),
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    child: Text(
+                                      text,
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 20.0),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           );
                         }).toList(),
                       );
@@ -139,11 +150,11 @@ class _Chat_ScreenState extends State<Chat_Screen> {
               child: TextField(
                 onSubmitted: (value) {
                   ChatModel chatModel = ChatModel(
-                            uid1: FirebaseAuth.instance.currentUser!.uid,
-                            uid2: widget.uid,
-                            text: text.text);
-                        chatModel.sendMessage();
-                        text.clear();
+                      uid1: FirebaseAuth.instance.currentUser!.uid,
+                      uid2: widget.uid,
+                      text: text.text);
+                  chatModel.sendMessage();
+                  text.clear();
                 },
                 controller: text,
                 decoration: InputDecoration(
@@ -163,6 +174,11 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(23.0),
+                  ),
+                  prefixIcon: IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.upload_file),
+                    color: Colors.grey,
                   ),
                   suffixIcon: IconButton(
                     onPressed: () {
