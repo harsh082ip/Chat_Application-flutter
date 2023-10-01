@@ -11,7 +11,8 @@ class ChatModel {
     required this.text,
   });
 
-  Future<void> sendMessage() async {
+  Future<void> sendMessage(bool istextAnImage) async {
+
     final CollectionReference chatCollection =
         FirebaseFirestore.instance.collection('chats');
 
@@ -32,6 +33,7 @@ class ChatModel {
             'sender_uid': uid1,
             'recever_uid': uid2,
             'text': text,
+            'istextAnImage':istextAnImage
           }
         ])
       });
@@ -43,6 +45,7 @@ class ChatModel {
             'sender_uid': uid1,
             'recever_uid': uid2,
             'text': text,
+            'istextAnImage':istextAnImage
           }
         ]
       });

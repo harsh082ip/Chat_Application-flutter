@@ -43,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
 
-            SizedBox(
+           const  SizedBox(
               height: 40.0,
             ),
             // profile avatar
