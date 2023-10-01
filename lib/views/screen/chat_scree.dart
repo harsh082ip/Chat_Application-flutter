@@ -21,13 +21,24 @@ class Chat_Screen extends StatefulWidget {
   State<Chat_Screen> createState() => _Chat_ScreenState();
 }
 
+
+
 class _Chat_ScreenState extends State<Chat_Screen> {
   final TextEditingController text = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 27, 32, 45),
       appBar: AppBar(
-        title: Text('Chats'),
+        backgroundColor: Color.fromARGB(255, 27, 32, 45),
+        elevation: 0,
+        title: Row(
+          children: [
+             CircleAvatar(
+          backgroundImage: NetworkImage(widget.profileURL), ),
+          SizedBox(width: 25.0,),
+            Text(widget.name, style: TextStyle(fontSize: 25.0),),
+        ],),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -43,7 +54,7 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                 builder: ((context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
-                      child: LinearProgressIndicator(),
+                      child: CircularProgressIndicator(),
                     );
                   }
 
@@ -69,6 +80,7 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                   return ListView.builder(
                     reverse: true,
                     itemCount: messages.length,
+                    
                     itemBuilder: (context, index) {
                       final message =
                           messages[index].data() as Map<String, dynamic>;
@@ -91,18 +103,28 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                                   .centerLeft; // Use Alignment.centerLeft for messages from other senders
                           print('Alignment: $alignment');
 
-                          return Container(
+                          return Container(  
                             alignment: alignment,
                             width: MediaQuery.of(context).size.width,
-                            child: Text(
-                              text,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: sender_uid ==
-                                          FirebaseAuth.instance.currentUser!.uid
-                                      ? Color.fromARGB(255, 55, 62, 78)
-                                      : Color.fromARGB(255, 55, 62, 78)),
-                            ),
+                            child: Flexible(
+                               child: Wrap( // Use Wrap to allow content to wrap
+                                  crossAxisAlignment: WrapCrossAlignment.start, // Align children to the start
+                                  children: [
+                                            Container(
+                                              padding: EdgeInsets.all(7.0),
+                                              margin: EdgeInsets.all(8.0),
+                                              decoration: BoxDecoration(
+                                              color: sender_uid == FirebaseAuth.instance.currentUser!.uid ? Color.fromARGB(255, 122, 129, 148): Color.fromARGB(255, 55, 62, 78),
+                                              borderRadius: BorderRadius.circular(16.0),
+                                          ),
+                                        child: Text(
+                                       text,
+                                          style: const TextStyle(color: Colors.white, fontSize: 20.0),
+                                         ),
+                                       ),
+                                    ],
+                                ),
+                             ),
                           );
                         }).toList(),
                       );
@@ -113,27 +135,34 @@ class _Chat_ScreenState extends State<Chat_Screen> {
             ),
             Container(
               alignment: Alignment.bottomCenter,
-              child: TextFormField(
+              margin: EdgeInsets.all(12.0),
+              child: TextField(
+                onSubmitted: (value) {
+                  ChatModel chatModel = ChatModel(
+                            uid1: FirebaseAuth.instance.currentUser!.uid,
+                            uid2: widget.uid,
+                            text: text.text);
+                        chatModel.sendMessage();
+                        text.clear();
+                },
                 controller: text,
                 decoration: InputDecoration(
                   focusColor: Colors.black,
+                  fillColor: Color.fromARGB(255, 55, 62, 78),
+                  filled: true,
                   hintText: 'Message',
                   hintStyle: const TextStyle(color: Colors.black),
                   enabledBorder: OutlineInputBorder(
                     borderSide: const BorderSide(
-                      color: Colors.black,
+                      color: Color.fromARGB(255, 122, 129, 148),
                     ),
-                    borderRadius: BorderRadius.circular(20.0),
+                    borderRadius: BorderRadius.circular(23.0),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                      color: Colors.black,
-                    ),
-                    borderRadius: BorderRadius.circular(20.0),
+                    borderRadius: BorderRadius.circular(23.0),
                   ),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide: const BorderSide(color: Colors.black),
+                    borderRadius: BorderRadius.circular(23.0),
                   ),
                   suffixIcon: IconButton(
                     onPressed: () {
