@@ -85,4 +85,18 @@ class Auth extends GetxController {
       log(e.toString());
     }
   }
+
+  // Logout 
+   void logout()async {
+    try{
+      await FirebaseAuth.instance.signOut();
+      Get.snackbar("Successfully Logout", "");
+    }catch(e){
+      print('Error in logging out');
+    }
+    if(FirebaseAuth.instance.currentUser!.uid==null){
+    Get.to(Login_Screen());
+    }
+  }
+
 }

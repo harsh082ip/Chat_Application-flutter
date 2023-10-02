@@ -18,11 +18,11 @@ class _Login_ScreenState extends State<Login_Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          color: const Color.fromARGB(255, 42, 49, 59),
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+      body: Container(
+        color: const Color.fromARGB(255, 42, 49, 59),
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: SingleChildScrollView(
           child: Container(
             margin:
                 const EdgeInsets.symmetric(horizontal: 35.0, vertical: 50.0),
@@ -120,7 +120,7 @@ class _Login_ScreenState extends State<Login_Screen> {
                       setState(() {
                         isLoggedin = true;
                       });
-
+        
                       // Perform the login operation asynchronously
                       try {
                         Auth.instance.login(
