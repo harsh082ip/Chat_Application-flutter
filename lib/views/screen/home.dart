@@ -5,6 +5,7 @@ import 'package:chat_application/views/widget/recent_messages.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -38,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      drawer:AppDrawer(),
+      drawer: AppDrawer(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -123,19 +124,19 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: CircularProgressIndicator(),
                         );
                       }
-          
+
                       if (snapshot.hasError) {
                         return Center(
                           child: Text(snapshot.error.toString()),
                         );
                       }
-          
+
                       if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                         return const Center(
                           child: Text('No Items Found'),
                         );
                       }
-          
+
                       final List<DocumentSnapshot> documents =
                           snapshot.data!.docs;
                       return ListView.builder(

@@ -135,50 +135,6 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                 const SizedBox(
                   height: 30.0,
                 ),
-                const Center(
-                  child: Text(
-                    " - - - OR SIGNUP WITH - - - ",
-                    style: TextStyle(color: Colors.white, fontSize: 18.0),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 50.0),
-                  height: 45.0,
-                  width: MediaQuery.of(context).size.width,
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromARGB(255, 122, 123, 152),
-                        shape: const StadiumBorder(),
-                        elevation: 1),
-                    onPressed: () {
-                      null;
-                    },
-                    icon: Row(
-                      children: [
-                        Image.asset(
-                          'assets/images/google.png',
-                          height: 40.0,
-                        ),
-                        const SizedBox(
-                          width: 25.0,
-                        )
-                      ],
-                    ),
-                    label: RichText(
-                        text: const TextSpan(children: [
-                      TextSpan(
-                          text: 'Sign Up with',
-                          style: TextStyle(color: Colors.white, fontSize: 18)),
-                      TextSpan(
-                          text: ' Google',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold))
-                    ])),
-                  ),
-                ),
                 const SizedBox(height: 7.3),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

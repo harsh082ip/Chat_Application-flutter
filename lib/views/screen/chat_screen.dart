@@ -147,7 +147,7 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                                                 text,
                                                 height: 250.0,
                                                 width: 250.0,
-                                                fit: BoxFit.fill,
+                                                fit: BoxFit.cover,
                                               ),
                                             ),
                                           )
@@ -180,7 +180,7 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                 //       text: text.text);
                 //   chatModel.sendMessage();
                 //   text.clear();
-                // },
+                // }
                 controller: text,
                 decoration: InputDecoration(
                   focusColor: Colors.black,
