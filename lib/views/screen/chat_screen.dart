@@ -27,6 +27,7 @@ class Chat_Screen extends StatefulWidget {
 }
 
 class _Chat_ScreenState extends State<Chat_Screen> {
+  bool isUserBlocked=false;
   File? imgpath;
   final TextEditingController text = TextEditingController();
   @override
@@ -50,6 +51,13 @@ class _Chat_ScreenState extends State<Chat_Screen> {
             ),
           ],
         ),
+        actions: <Widget>[
+          Switch(value: isUserBlocked, onChanged: (val){
+            setState(() {
+              isUserBlocked=!isUserBlocked;
+            });
+          })
+        ],
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -102,11 +110,12 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                           final text = messageItem['text'];
                           final imageOrText = messageItem['istextAnImage'];
                           final sender_uid = messageItem['sender_uid'];
+                          final isUserBlocked= messageItem['isUserBlocked'];
                           print('Message Text: $text');
                           print('Sender UID: $sender_uid');
                           print(
                               'Current User UID: ${FirebaseAuth.instance.currentUser!.uid}');
-
+                          print('isUserBlocked $isUserBlocked');
                           final alignment = sender_uid ==
                                   FirebaseAuth.instance.currentUser!.uid
                               ? Alignment.centerRight
@@ -170,7 +179,7 @@ class _Chat_ScreenState extends State<Chat_Screen> {
             Container(
               alignment: Alignment.bottomCenter,
               margin: EdgeInsets.all(12.0),
-              child: TextField(
+              child: isUserBlocked? Text('You have been blocked'): TextFormField(
                 // onSubmitted: (value) {
                 //   ChatModel chatModel = ChatModel(
                 //       uid1: FirebaseAuth.instance.currentUser!.uid,
@@ -218,7 +227,8 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                         ChatModel chatModel = ChatModel(
                             uid1: FirebaseAuth.instance.currentUser!.uid,
                             uid2: widget.uid,
-                            text: text.text);
+                            text: text.text,
+                            isUserBlocked: isUserBlocked);
 
                         chatModel.sendMessage(false);
                       }
@@ -233,7 +243,8 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                           ChatModel chatModel = ChatModel(
                               uid1: FirebaseAuth.instance.currentUser!.uid,
                               uid2: widget.uid,
-                              text: downurl.toString());
+                              text: downurl.toString(),
+                              isUserBlocked: isUserBlocked);
                           chatModel.sendMessage(true);
                           setState(() {
                             imgpath = null;

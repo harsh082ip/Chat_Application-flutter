@@ -4,11 +4,13 @@ class ChatModel {
   String uid1;
   String uid2;
   String text;
+  bool isUserBlocked;
 
   ChatModel({
     required this.uid1,
     required this.uid2,
     required this.text,
+    required this.isUserBlocked
   });
 
   Future<void> sendMessage(bool istextAnImage) async {
@@ -33,7 +35,8 @@ class ChatModel {
             'sender_uid': uid1,
             'recever_uid': uid2,
             'text': text,
-            'istextAnImage':istextAnImage
+            'istextAnImage':istextAnImage,
+            'isUserBlocked':isUserBlocked,
           }
         ])
       });
@@ -45,7 +48,8 @@ class ChatModel {
             'sender_uid': uid1,
             'recever_uid': uid2,
             'text': text,
-            'istextAnImage':istextAnImage
+            'istextAnImage':istextAnImage,
+            'isUserBlocked': isUserBlocked
           }
         ]
       });
