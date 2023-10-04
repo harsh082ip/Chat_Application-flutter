@@ -117,49 +117,47 @@ class _Chat_ScreenState extends State<Chat_Screen> {
                           return Container(
                             alignment: alignment,
                             width: MediaQuery.of(context).size.width,
-                            child: Flexible(
-                              child: Wrap(
-                                // Use Wrap to allow content to wrap
-                                crossAxisAlignment: WrapCrossAlignment
-                                    .start, // Align children to the start
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(7.0),
-                                    margin: EdgeInsets.all(8.0),
-                                    decoration: BoxDecoration(
-                                      color: sender_uid ==
-                                              FirebaseAuth
-                                                  .instance.currentUser!.uid
-                                          ? Color.fromARGB(255, 122, 129, 148)
-                                          : Color.fromARGB(255, 55, 62, 78),
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    child: imageOrText
-                                        ? Container(
-                                            margin: EdgeInsets.all(0.0),
-                                            padding: EdgeInsets.all(0.0),
-                                            child: InkWell(
-                                              onTap: () {
-                                                Get.to(ImageFullScreen(
-                                                    imgPath: text));
-                                              },
-                                              child: Image.network(
-                                                text,
-                                                height: 250.0,
-                                                width: 250.0,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          )
-                                        : SelectableText(
-                                            text,
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 20.0),
-                                          ),
+                            child: Wrap(
+                              // Use Wrap to allow content to wrap
+                              crossAxisAlignment: WrapCrossAlignment
+                                  .start, // Align children to the start
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(7.0),
+                                  margin: EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                    color: sender_uid ==
+                                            FirebaseAuth
+                                                .instance.currentUser!.uid
+                                        ? Color.fromARGB(255, 122, 129, 148)
+                                        : Color.fromARGB(255, 55, 62, 78),
+                                    borderRadius: BorderRadius.circular(16.0),
                                   ),
-                                ],
-                              ),
+                                  child: imageOrText
+                                      ? Container(
+                                          margin: EdgeInsets.all(0.0),
+                                          padding: EdgeInsets.all(0.0),
+                                          child: InkWell(
+                                            onTap: () {
+                                              Get.to(ImageFullScreen(
+                                                  imgPath: text));
+                                            },
+                                            child: Image.network(
+                                              text,
+                                              height: 250.0,
+                                              width: 250.0,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        )
+                                      : SelectableText(
+                                          text,
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20.0),
+                                        ),
+                                ),
+                              ],
                             ),
                           );
                         }).toList(),
