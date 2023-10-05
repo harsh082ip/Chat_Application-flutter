@@ -6,15 +6,13 @@ class ChatModel {
   String text;
   bool isUserBlocked;
 
-  ChatModel({
-    required this.uid1,
-    required this.uid2,
-    required this.text,
-    required this.isUserBlocked
-  });
+  ChatModel(
+      {required this.uid1,
+      required this.uid2,
+      required this.text,
+      required this.isUserBlocked});
 
   Future<void> sendMessage(bool istextAnImage) async {
-
     final CollectionReference chatCollection =
         FirebaseFirestore.instance.collection('chats');
 
@@ -35,8 +33,7 @@ class ChatModel {
             'sender_uid': uid1,
             'recever_uid': uid2,
             'text': text,
-            'istextAnImage':istextAnImage,
-            'isUserBlocked':isUserBlocked,
+            'istextAnImage': istextAnImage,
           }
         ])
       });
@@ -48,10 +45,11 @@ class ChatModel {
             'sender_uid': uid1,
             'recever_uid': uid2,
             'text': text,
-            'istextAnImage':istextAnImage,
-            'isUserBlocked': isUserBlocked
+            'istextAnImage': istextAnImage,
           }
-        ]
+        ],
+        "isChatBlocked": false,
+        "whoHasBlocked": "none",
       });
     }
   }
